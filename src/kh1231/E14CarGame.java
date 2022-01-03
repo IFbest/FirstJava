@@ -19,7 +19,7 @@ class MyPanel extends JPanel{
     int img_y = 100;
     public MyPanel(){
         try{
-            img = ImageIO.read(new File("C:\\Temp/car.gif"));
+            img = ImageIO.read(new File("C:\\Temp/car1.gif"));
         } catch(IOException e) {
             System.out.println("no image");
             System.exit(1);
