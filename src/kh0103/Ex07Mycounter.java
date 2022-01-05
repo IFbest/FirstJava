@@ -46,7 +46,7 @@ public class Ex07Mycounter extends JFrame implements ActionListener {
 		//전송받은 이벤트 객체를 JButton 객체로 형변환 한 후 
 		JButton b = (JButton)e.getSource();
 		count ++;
-		b.setText("" + count);
+		label1.setText("" + count);
 
 //		count++;
 //		label1.setText("" + count);
