@@ -5,7 +5,6 @@ import java.awt.*;
 public class StarShipSprite extends Sprite{
     private GalagaGame game;
 
-
     public StarShipSprite(GalagaGame game, Image image, int x, int y){
         super(image, x, y);//이미지,x,y를 생성자로 갖는 부모클래스의 변수 사용(Sprite)
         this.game = game;
@@ -19,6 +18,9 @@ public class StarShipSprite extends Sprite{
         }
         if ((dx>0) && (x>800)){//오른쪽벽보다 적게 위치하고 이동속도가 0보다 클 경우
             return;//움직임을 제한(진행을 멈춤,그 위치에 있게 함)
+        }
+        if ((dy>0) && (y>530)){//아래의 벽을 설치
+            return;
         }
         super.move();//부모의 메소드의 멤버변수 x += dx;y += dy;갖고 옴
     }

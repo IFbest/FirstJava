@@ -72,11 +72,11 @@ public class GalagaGame extends JPanel implements KeyListener {
         startGame();
     }
     private void initSprites() {//초기 설정 메소드
-        starship = new StarShipSprite(this, shipImage, 370, 550);
+        starship = new StarShipSprite(this, shipImage, 370, 500);
         sprites.add(starship);
         for (int y=0;y<5;y++){//5행
             for (int x=0; x<12; x++){//12열
-                Sprite alien = new AlienSprite(this, alienImage,100+(x*50), (50)+y*30);
+                Sprite alien = new AlienSprite(this, alienImage,100+(x*50), (0)+y*30);
                 sprites.add(alien);
             }
         }
