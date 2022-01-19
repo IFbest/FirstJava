@@ -6,14 +6,14 @@ import java.awt.*;
 //패널에(100,20)에서 150x150 크기로 클리핑 영역을 설정
 public class GraphicsClipEx extends JFrame {
     private MyPanel panel = new MyPanel();
-    public GraphicsClipEx(){
+    public GraphicsClipEx(){//프레임
         setTitle("클리핑 예제");//제목설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//창이꺼지면 프로세스도 종료
         setContentPane(panel);//컨텐트팬에 패널 셋
         setSize(300,400);//사이즈 지정
         setVisible(true);//보이게 설정
-    }//패널 영역
-    class MyPanel extends JPanel{
+    }
+    class MyPanel extends JPanel{//패널
         private ImageIcon icon = new ImageIcon("image0.jpg");//아이콘객체
         private Image img = icon.getImage();//이미지 객체
         public void paintComponent(Graphics g){//재정의
