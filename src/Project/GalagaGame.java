@@ -173,14 +173,13 @@ public class GalagaGame extends JPanel implements KeyListener {
         super.paint(g);//부모도 그릴 수 있게 설정
         g.drawImage(background,0,0,null);
         g.setColor(Color.white);//
-        g.setFont(new Font("Arial",Font.BOLD,15));
-        g.drawString("스테이지 : " + stage,700,20);
-        g.drawString("점수 : " + scoreP.score,700,40);
-        g.drawString("필살기 : "+ freeFireCount,700,60);
         for (int i =0;i<sprites.size();i++){//수많은 적 그리기
             Sprite sprite = (Sprite) sprites.get(i);
             sprite.draw(g);
         }
+        g.drawString("스테이지 : " + stage,700,20);
+        g.drawString("점수 : " + scoreP.score,700,40);
+        g.drawString("필살기 : "+ freeFireCount,700,60);
     }
     public void gameLoop(){//플레이어를 제외한 모든 오브젝트를 이동시킴
         while (running){
