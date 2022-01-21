@@ -16,24 +16,27 @@ import java.util.ArrayList;
 
 public class GalagaGame extends JPanel implements KeyListener {
     private boolean running = true;//게임 진행 상태
-
+    //적기 관련
     private ArrayList sprites = new ArrayList();
     private Sprite starship;
+    //이미지 관련
     private BufferedImage alienImage;
     private BufferedImage shotImage;
     private BufferedImage shipImage;
     private BufferedImage background;
-
     private BufferedImage lazerImage;
-
+    private BufferedImage miniShipImage;
+    private BufferedImage multiMissile;
+    //오디오 관련
     private Clip clip;
     private AudioInputStream audioInputStream;
     private File audioBgm;
     private File audioShot;
     private File audioExplode;
-
+    //게임 카운트 관련
     private int stage;
     private int freeFireCount = 1;
+    private int hp = 6;
 
     Score scoreP = new Score();
 
@@ -52,8 +55,10 @@ public class GalagaGame extends JPanel implements KeyListener {
         //종료시 프로세스 종료
 
         try {//버퍼이미지 변수에 해당 이미지들 삽입
-            shotImage = ImageIO.read(new File("missile.png"));
+            shotImage = ImageIO.read(new File("missile00.png"));
+            multiMissile = ImageIO.read(new File("missile.png"));
             shipImage = ImageIO.read(new File("airplane.png"));
+            miniShipImage = ImageIO.read(new File("miniairplane.png"));
             alienImage = ImageIO.read(new File("enemy.png"));
             background = ImageIO.read(new File("background.jpeg"));
             lazerImage = ImageIO.read(new File("lazer.png"));
@@ -100,16 +105,20 @@ public class GalagaGame extends JPanel implements KeyListener {
         }
     }
     public void endGame() {//게임종료 메소드
-        if (stage==1 && scoreP.getScore()==0){//시작과 같이 증가값이 없을 경우
-            JOptionPane.showMessageDialog(null,"스테이지 : "
-                    +stage+"\n점수 : "+ scoreP.getScore()+"\n ㅋㅋ","ㅋㅋ",JOptionPane.INFORMATION_MESSAGE);
-        }else {//1점이라도 오른다면
-            JOptionPane.showMessageDialog(null,"스테이지 : "
-                    +stage+"\n점수 : "+ scoreP.getScore(),"대단해요!",JOptionPane.INFORMATION_MESSAGE);
+        hp--;
+        if (hp == 0){
+            if (stage==1 && scoreP.getScore()==0){//시작과 같이 증가값이 없을 경우
+                JOptionPane.showMessageDialog(null,"스테이지 : "
+                        +stage+"\n점수 : "+ scoreP.getScore()+"\n ㅋㅋ","ㅋㅋ",JOptionPane.INFORMATION_MESSAGE);
+
+            }else {//1점이라도 오른다면
+                JOptionPane.showMessageDialog(null,"스테이지 : "
+                        +stage+"\n점수 : "+ scoreP.getScore(),"대단해요!",JOptionPane.INFORMATION_MESSAGE);
+            }
+            System.exit(0);
         }
 
-        System.out.println("endgame()");//게임끝 출력
-        System.exit(0);
+
     }
     public void removeSprite(Sprite sprite){
         sprites.remove(sprite);//적 삭제
@@ -126,20 +135,20 @@ public class GalagaGame extends JPanel implements KeyListener {
     }
     public void freeFire(){//필살기 메소드 특정좌표마다 4개씩 발표X4
         if (freeFireCount == 1){
-            for (int z=0;z<4;z++){
-                ShotSprite shot2 = new ShotSprite(this,shotImage,50,600+(z*40));
+            for (int z=0;z<6;z++){
+                ShotSprite shot2 = new ShotSprite(this,multiMissile,50,600+(z*40));
                 sprites.add(shot2);
             }
-            for (int z=0;z<4;z++){
-                ShotSprite shot3 = new ShotSprite(this,shotImage,250,600+(z*40));
+            for (int z=0;z<6;z++){
+                ShotSprite shot3 = new ShotSprite(this,multiMissile,250,600+(z*40));
                 sprites.add(shot3);
             }
-            for (int z=0;z<4;z++){
-                ShotSprite shot4 = new ShotSprite(this,shotImage,430,600+(z*40));
+            for (int z=0;z<6;z++){
+                ShotSprite shot4 = new ShotSprite(this,multiMissile,430,600+(z*40));
                 sprites.add(shot4);
             }
-            for (int z=0;z<4;z++){
-                ShotSprite shot5 = new ShotSprite(this,shotImage,600,600+(z*40));
+            for (int z=0;z<6;z++){
+                ShotSprite shot5 = new ShotSprite(this,multiMissile,600,600+(z*40));
                 sprites.add(shot5);
             }
             freeFireCount--;
@@ -180,6 +189,17 @@ public class GalagaGame extends JPanel implements KeyListener {
         g.drawString("스테이지 : " + stage,700,20);
         g.drawString("점수 : " + scoreP.score,700,40);
         g.drawString("필살기 : "+ freeFireCount,700,60);
+        g.drawString("HP : ",20,20);
+        if (hp==6){
+            g.drawImage(miniShipImage,20,30,null);
+            g.drawImage(miniShipImage,60,30,null);
+            g.drawImage(miniShipImage,100,30,null);
+        }else if (hp ==4){
+            g.drawImage(miniShipImage,20,30,null);
+            g.drawImage(miniShipImage,60,30,null);
+        }else {
+            g.drawImage(miniShipImage,20,30,null);
+        }
     }
     public void gameLoop(){//플레이어를 제외한 모든 오브젝트를 이동시킴
         while (running){
@@ -280,4 +300,5 @@ public class GalagaGame extends JPanel implements KeyListener {
         GalagaGame g = new GalagaGame();
         g.gameLoop();
     }
-}
+} 
+ 

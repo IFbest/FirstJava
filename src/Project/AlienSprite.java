@@ -16,7 +16,7 @@ public class AlienSprite extends Sprite{
         if (((dx<0) && (x<10)) || ((dx >0) && (x>800))){
             dx = -dx;//이동속도를 0으로 만든다는 의미,or조건이기 때문에 벽에서 튕겨나가는 역할
             y += 10;//한 칸 아래로 이동하게 됨
-            if (y>600){//적기(Alien)가 아래 밑에 도달하면
+            if (y>550){//적기(Alien)가 아래 밑에 도달하면
                 game.endGame();//게임오버
             }
         }
